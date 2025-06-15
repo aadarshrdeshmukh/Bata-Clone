@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shopping Cart | Bata</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+        /* Existing styles */
+        /* ... existing code ... */
+
+        /* New styles for quantity buttons */
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-control button {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .quantity-control button:hover {
+            background-color: #e0e0e0;
+        }
+
+        .quantity-control .quantity {
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cc-slider">
+        <div class="cc-slide activePromo">
+            <span class="cc-text">
+                Free home delivery on order worth ₹ 699 and above
+            </span>
+        </div>
+
+        <div class="cc-slide">
+            <span class="cc-text">
+                No Question asked Return within 30 days
+            </span>
+        </div>
+
+        <div class="cc-slide">
+            <span class="cc-text">
+                Exceptional Customer Service @ 72 899 00000
+            </span>
+        </div>
+    </div>
+    <header>
+        <div class="left categories">
+            <a href="men.html">Men</a>
+            <a href="women.html">Women</a>
+            <a href="kids.html">Kids</a>
+        </div>
+
+        <div class="center">
+            <a href="../index.html" class="logo">
+                <img src="../assets/bata-logo.png" alt="Bata Logo" class="logo-img" />
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="search-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" placeholder="Search..." />
+            </div>
+            <div class="right-icons">
+                <a href="login.html"><i class="fas fa-user"></i></a>
+                <a href="wishlist.html"><i class="fas fa-heart"></i></a>
+                <div class="cart-icon-wrapper">
+                    <a href="cart.html" class="active"><i class="fas fa-shopping-cart"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="cart-section">
+            <h1>My shopping cart </h1>
+
+            <div class="cart-container">
+                <div class="cart-items" id="cart-items-container">
+                    <!-- Cart items will be dynamically inserted here -->
+                </div>
+
+                <div class="cart-summary">
+                    <h2>Order Summary</h2>
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span>₹ 825.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping Cost</span>
+                        <span class="free">FREE</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Price</span>
+                        <span>₹ 825.00</span>
+                    </div>
+                    <button class="checkout-btn">PROCEED</button>
+                    <button class="continue-shopping">CONTINUE SHOPPING</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-promo">
+            <div>
+                <h2>BATA CLUB<br>WILL SURPRISE YOU</h2>
+                <p>Benefits and surprises await you. Sign up now.</p>
+                <a href="#" class="button-red">Discover more</a>
+            </div>
+        </div>
+
+        <div class="footer-columns">
+            <div class="footer-column">
+                <h4>Support</h4>
+                <a href="#">Contact Us</a>
+                <a href="#">FAQs</a>
+                <a href="#">Shipping & Returns</a>
+            </div>
+            <div class="footer-column">
+                <h4>About Us</h4>
+                <a href="#">Our Story</a>
+                <a href="#">Careers</a>
+                <a href="#">Sustainability</a>
+            </div>
+            <div class="footer-column">
+                <h4>Follow Us</h4>
+                <a href="#"><i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2023 Bata. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/ecommerce.js"></script>
+    
+    <script>
+        // Function to display cart items
+        function displayCartItems() {
+            const cartItemsContainer = document.getElementById('cart-items-container');
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cartItemsContainer.innerHTML = '';
+            let subtotal = 0;
+
+            cart.forEach((item, index) => {
+                const price = parseFloat(item.price.replace('₹', '').replace(',', ''));
+                subtotal += price * item.quantity;
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+                cartItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}" class="product-image" />
+                    <div class="product-details">
+                        <h2>${item.title}</h2>
+                        <p class="product-price">${item.price}</p>
+                        <p>Size: ${item.size}</p>
+                        <p class="in-stock">IN STOCK</p>
+                        <div class="quantity-control">
+                            <button class="decrease-quantity" data-index="${index}">-</button>
+                            <span class="quantity">${item.quantity}</span>
+                            <button class="increase-quantity" data-index="${index}">+</button>
+                        </div>
+                    </div>
+                    <button class="remove-item" data-index="${index}">&times;</button>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+            });
+
+            // Update cart summary
+            document.querySelector('.summary-row span:nth-child(2)').innerText = `₹ ${subtotal.toFixed(2)}`;
+            document.querySelector('.total span:nth-child(2)').innerText = `₹ ${subtotal.toFixed(2)}`;
+
+            // Add event listeners to quantity buttons
+            const increaseButtons = document.querySelectorAll('.increase-quantity');
+            const decreaseButtons = document.querySelectorAll('.decrease-quantity');
+
+            increaseButtons.forEach(button => {
+                button.addEventListener('click', increaseQuantity);
+            });
+
+            decreaseButtons.forEach(button => {
+                button.addEventListener('click', decreaseQuantity);
+            });
+
+            // Add event listeners to remove buttons
+            const removeButtons = document.querySelectorAll('.remove-item');
+            removeButtons.forEach(button => {
+                button.addEventListener('click', removeCartItem);
+            });
+        }
+
+        // Function to increase quantity
+        function increaseQuantity(event) {
+            const index = event.target.getAttribute('data-index');
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart[index].quantity += 1;
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCartItems();
+        }
+
+        // Function to decrease quantity
+        function decreaseQuantity(event) {
+            const index = event.target.getAttribute('data-index');
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart[index].quantity > 1) {
+                cart[index].quantity -= 1;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                displayCartItems();
+            }
+        }
+
+        // Function to remove item from cart
+        function removeCartItem(event) {
+            const index = event.target.getAttribute('data-index');
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCartItems();
+        }
+
+        // Call the function to display cart items on page load
+        document.addEventListener('DOMContentLoaded', displayCartItems);
+    </script>
+</body>
+
+</html> 
+</html> 

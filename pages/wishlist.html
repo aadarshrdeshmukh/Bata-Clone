@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My Wishlist | Bata</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/ecommerce.css" />
+</head>
+
+<body>
+    <div class="cc-slider">
+        <div class="cc-slide activePromo">
+            <span class="cc-text">
+                Free home delivery on order worth ₹ 699 and above
+            </span>
+        </div>
+
+        <div class="cc-slide">
+            <span class="cc-text">
+                No Question asked Return within 30 days
+            </span>
+        </div>
+
+        <div class="cc-slide">
+            <span class="cc-text">
+                Exceptional Customer Service @ 72 899 00000
+            </span>
+        </div>
+    </div>
+    <header>
+        <div class="left categories">
+            <a href="men.html">Men</a>
+            <a href="women.html">Women</a>
+            <a href="kids.html">Kids</a>
+        </div>
+
+        <div class="center">
+            <a href="../index.html" class="logo">
+                <img src="../assets/bata-logo.png" alt="Bata Logo" class="logo-img" />
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="search-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" placeholder="Search..." />
+            </div>
+            <div class="right-icons">
+                <a href="login.html"><i class="fas fa-user"></i></a>
+                <a href="wishlist.html" class="active"><i class="fas fa-heart"></i></a>
+                <div class="cart-icon-wrapper">
+                    <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="wishlist-main">
+        <div class="container">
+            <h1>My Wishlist</h1>
+            
+            <div class="wishlist-summary">
+                <p>You have <span id="wishlist-count">0</span> items in your wishlist</p>
+            </div>
+
+            <div id="wishlist-items" class="wishlist-grid">
+                <!-- Wishlist items will be loaded dynamically -->
+            </div>
+
+            <a href="../index.html" class="continue-shopping">Continue Shopping</a>
+        </div>
+    </main>
+
+    <!-- Enhanced Footer -->
+    <footer>
+        <div class="footer-promo">
+            <div>
+                <h2>BATA CLUB<br>WILL SURPRISE YOU</h2>
+                <p>Benefits and surprises await you. Sign up now.</p>
+                <a href="#" class="button-red">Discover more</a>
+            </div>
+        </div>
+
+        <div class="footer-columns">
+            <div class="footer-column">
+                <h4>Support</h4>
+                <a href="#">Contact Us</a>
+                <a href="#">FAQs</a>
+                <a href="#">Shipping & Returns</a>
+            </div>
+            <div class="footer-column">
+                <h4>About Us</h4>
+                <a href="#">Our Story</a>
+                <a href="#">Careers</a>
+                <a href="#">Sustainability</a>
+            </div>
+            <div class="footer-column">
+                <h4>Follow Us</h4>
+                <a href="#"><i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2023 Bata. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/ecommerce.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const wishlistItemsContainer = document.getElementById('wishlist-items');
+            const wishlistCount = document.getElementById('wishlist-count');
+            let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+            console.log('Wishlist loaded:', wishlist);
+            wishlistCount.innerText = wishlist.length;
+
+            function updateWishlistDisplay() {
+                wishlistItemsContainer.innerHTML = '';
+                wishlist.forEach((item, index) => {
+                    console.log('Adding item to wishlist:', item);
+                    const itemElement = document.createElement('div');
+                    itemElement.classList.add('wishlist-item');
+                    itemElement.innerHTML = `
+                        <img src="${item.image}" alt="${item.title}" />
+                        <div class="wishlist-item-details">
+                            <h3>${item.title}</h3>
+                            <p>${item.price}</p>
+                            <p>Size: ${item.size}</p>
+                            <button class="remove-wishlist-item" data-index="${index}">Remove</button>
+                        </div>
+                    `;
+                    wishlistItemsContainer.appendChild(itemElement);
+                });
+
+                document.querySelectorAll('.remove-wishlist-item').forEach(button => {
+                    button.addEventListener('click', (event) => {
+                        const index = event.target.getAttribute('data-index');
+                        wishlist.splice(index, 1);
+                        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+                        updateWishlistDisplay();
+                        wishlistCount.innerText = wishlist.length;
+                    });
+                });
+            }
+
+            updateWishlistDisplay();
+        });
+    </script>
+</body>
+
+</html> 

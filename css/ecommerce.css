@@ -73,3 +73,7 @@
 .remove-wishlist-item:hover {
     transform: translateY(-1px);
 }
+
+.wishlist-main{
+    margin-top: 50px;
+}

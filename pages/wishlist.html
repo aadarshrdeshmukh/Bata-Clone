@@ -125,15 +125,21 @@
             function updateWishlistDisplay() {
                 wishlistItemsContainer.innerHTML = '';
                 wishlist.forEach((item, index) => {
-                    console.log('Adding item to wishlist:', item);
+                    console.log('Item details:', {
+                        title: item.title,
+                        price: item.price,
+                        image: item.image,
+                        size: item.size
+                    });
+
                     const itemElement = document.createElement('div');
                     itemElement.classList.add('wishlist-item');
                     itemElement.innerHTML = `
-                        <img src="${item.image}" alt="${item.title}" />
+                        <img src="${item.image || 'default-image.png'}" alt="${item.title || 'Unknown Product'}" />
                         <div class="wishlist-item-details">
-                            <h3>${item.title}</h3>
-                            <p>${item.price}</p>
-                            <p>Size: ${item.size}</p>
+                            <h3>${item.title || 'Unknown Product'}</h3>
+                            <p>${item.price || 'Unknown Price'}</p>
+                            <p>Size: ${item.size || 'N/A'}</p>
                             <button class="remove-wishlist-item" data-index="${index}">Remove</button>
                         </div>
                     `;

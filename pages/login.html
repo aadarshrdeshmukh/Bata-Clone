@@ -150,47 +150,7 @@
 
     <script src="../js/script.js"></script>
     <script src="../js/ecommerce.js"></script>
-    <script>
-        document.getElementById("loginForm").addEventListener("submit", function (e) {
-            e.preventDefault();
-    
-            const emailInput = document.getElementById("email");
-            const passwordInput = document.getElementById("password");
-            const emailError = document.getElementById("emailError");
-            const passwordError = document.getElementById("passwordError");
-    
-            let valid = true;
-    
-            const emailValue = emailInput.value.trim();
-            const passwordValue = passwordInput.value.trim();
-    
-            // Regex for email or 10-digit mobile number
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$|^\d{10}$/;
-    
-            // Clear previous errors
-            emailError.textContent = "";
-            passwordError.textContent = "";
-    
-            // Validate email/mobile
-            if (!emailRegex.test(emailValue)) {
-                emailError.textContent = "Please enter a valid email or 10-digit mobile number.";
-                valid = false;
-            }
-    
-            // Validate password
-            if (passwordValue.length < 6) {
-                passwordError.textContent = "Password must be at least 6 characters long.";
-                valid = false;
-            }
-    
-            // If all valid
-            if (valid) {
-                alert("Login successful!"); // Replace this with actual login logic
-                // You can also submit form using AJAX here if needed
-            }
-        });
-    </script>
-    
+    <script src="../js/login.js"></script>
 </body>
 
 </html>

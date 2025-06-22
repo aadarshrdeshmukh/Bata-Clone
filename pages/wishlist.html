@@ -113,53 +113,7 @@
 
     <script src="../js/script.js"></script>
     <script src="../js/ecommerce.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const wishlistItemsContainer = document.getElementById('wishlist-items');
-            const wishlistCount = document.getElementById('wishlist-count');
-            let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-
-            console.log('Wishlist loaded:', wishlist);
-            wishlistCount.innerText = wishlist.length;
-
-            function updateWishlistDisplay() {
-                wishlistItemsContainer.innerHTML = '';
-                wishlist.forEach((item, index) => {
-                    console.log('Item details:', {
-                        title: item.title,
-                        price: item.price,
-                        image: item.image,
-                        size: item.size
-                    });
-
-                    const itemElement = document.createElement('div');
-                    itemElement.classList.add('wishlist-item');
-                    itemElement.innerHTML = `
-                        <img src="${item.image || 'default-image.png'}" alt="${item.title || 'Unknown Product'}" />
-                        <div class="wishlist-item-details">
-                            <h3>${item.title || 'Unknown Product'}</h3>
-                            <p>${item.price || 'Unknown Price'}</p>
-                            <p>Size: ${item.size || 'N/A'}</p>
-                            <button class="remove-wishlist-item" data-index="${index}">Remove</button>
-                        </div>
-                    `;
-                    wishlistItemsContainer.appendChild(itemElement);
-                });
-
-                document.querySelectorAll('.remove-wishlist-item').forEach(button => {
-                    button.addEventListener('click', (event) => {
-                        const index = event.target.getAttribute('data-index');
-                        wishlist.splice(index, 1);
-                        localStorage.setItem('wishlist', JSON.stringify(wishlist));
-                        updateWishlistDisplay();
-                        wishlistCount.innerText = wishlist.length;
-                    });
-                });
-            }
-
-            updateWishlistDisplay();
-        });
-    </script>
+    <script src="../js/wishlist.js"></script>
 </body>
 
 </html> 
